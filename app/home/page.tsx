@@ -1,8 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { useUser} from '../Context/shoppingContext'
+import { UseUser} from '../Context/shoppingContext'
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 type ApiDataType ={
   id:number;
@@ -12,8 +13,8 @@ type ApiDataType ={
       image: string;
     }
 
-const page:React.FC=()=> {
-  const {username,logout, addToCart} = useUser()
+const Page:React.FC=()=> {
+  const {username,logout, addToCart} = UseUser()
 console.log(username)
 const router = useRouter()
 
@@ -81,7 +82,7 @@ useEffect(()=>{
   };
 
   fetchdata();
-},[currentPage])
+})
 
 
   return (
@@ -102,7 +103,8 @@ useEffect(()=>{
               {apiData && apiData.map((item)=>( 
                 <div key={item.id} className='border border-black rounded-2xl h-[60%] p-3'>
                     
-                    <img alt='' src={item.image} className='rounded-tr-2xl rounded-tl-2xl w-full h-[80%]'></img>
+                    <Image alt='' src={item.image} className='rounded-tr-2xl rounded-tl-2xl w-full h-[80%]' width={400} height={400}></Image>
+                    
 
                     <div className='flex items-center justify-center w-[90%] m-auto'>
                       <div className='w-[70%] '>
@@ -138,4 +140,4 @@ useEffect(()=>{
   )
 }
 
-export default page
+export default Page

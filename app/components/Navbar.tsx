@@ -1,12 +1,12 @@
 import React from 'react'
 import { FaCartShopping } from "react-icons/fa6"
-import { useUser} from '../Context/shoppingContext'
+import { UseUser} from '../Context/shoppingContext'
 import { useRouter } from 'next/navigation'
 
 
-function navbar() {
+function Navbar() {
 
-  const {cart} = useUser()
+  const {cart} = UseUser()
   const router = useRouter()
 
 
@@ -28,4 +28,4 @@ function navbar() {
   )
 }
 
-export default navbar
+export default Navbar

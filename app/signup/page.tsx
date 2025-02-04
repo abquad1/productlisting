@@ -2,9 +2,9 @@
 import React, { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
-import { auth, db } from '../config/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { doc, setDoc } from 'firebase/firestore'
+// import { auth, db } from '../config/firebase'
+// import { createUserWithEmailAndPassword } from 'firebase/auth'
+// import { doc, setDoc } from 'firebase/firestore'
 
 function SignUp() {
 
@@ -83,52 +83,52 @@ function SignUp() {
             return
         }
 
-       try {
-            // Create authentication user
-            const userCredential = await createUserWithEmailAndPassword(
-                auth,
-                input.email,
-                input.password
-            )
+    //    try {
+    //         // Create authentication user
+    //         const userCredential = await createUserWithEmailAndPassword(
+    //             auth,
+    //             input.email,
+    //             input.password
+    //         )
 
             // Store additional user data in Firestore
-            await setDoc(doc(db, "users", userCredential.user.uid), {
-                firstname: input.firstname,
-                lastname: input.lastname,
-                username: input.username,
-                email: input.email,
-                createdAt: new Date().toISOString(),
-                lastLogin: new Date().toISOString()                
-            })
+            // await setDoc(doc(db, "users", userCredential.user.uid), {
+            //     firstname: input.firstname,
+            //     lastname: input.lastname,
+            //     username: input.username,
+            //     email: input.email,
+            //     createdAt: new Date().toISOString(),
+            //     lastLogin: new Date().toISOString()                
+            // })
 
         router.push('/login')
 
-        } catch (err: any) {
-                            console.error('Registration error:', err)
-                            if (err.code === 'auth/email-already-in-use') {
-                                setError({
-                                    ...error,
-                                    email: 'This email is already registered'
-                                })
-                            } else {
-                                setError({
-                                    ...error,
-                                    email: 'An error occurred during registration'
-                                })
-                            }
-                        }
+        // } catch (err) {
+        //                     console.error('Registration error:', err)
+        //                     // if (err.code === 'auth/email-already-in-use') {
+        //                     //     setError({
+        //                     //         ...error,
+        //                     //         email: 'This email is already registered'
+        //                     //     })
+        //                     // } else {
+        //                     //     setError({
+        //                     //         ...error,
+        //                     //         email: 'An error occurred during registration'
+        //                     //     })
+        //                     // }
+        //                 }
          
-        // const response = await fetch('pages/api/submit', {
-        //   method: 'POST',
-        //   headers: {
-        //     'content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify(input) 
-        // })
+        const response = await fetch('pages/api/submit', {
+          method: 'POST',
+          headers: {
+            'content-Type': 'application/json'
+          },
+          body: JSON.stringify(input) 
+        })
            
-        // const result = await response.json();
+        const result = await response.json();
 
-        // console.log('form submitted:', result)
+        console.log('form submitted:', result)
     }
 
   return (

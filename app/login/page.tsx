@@ -1,13 +1,12 @@
 'use client'
-import React, { useState, useContext } from 'react'
-import { useUser } from '../Context/shoppingContext'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { UseUser } from '../Context/shoppingContext'
 import { useRouter } from 'next/navigation'
 
 function SignIn() {
 
 const router = useRouter()
-    const {setUsername} = useUser()
+    const {setUsername} = UseUser()
 
 const [input,setInput] = useState({
     username: '', password: ''
@@ -47,11 +46,23 @@ const validateInput =()=>{
     return newErrors
 }
 
+useEffect(() => {
+    const handleLocalStorage = () => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('username', JSON.stringify(input.username))
+        }
+    }
+
+    // Only run when username is set during form submission
+    if (input.username) {
+        handleLocalStorage()
+    }
+}, [input.username])
+
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setUsername(input.username);
-    localStorage.setItem('username',JSON.stringify(input.username))
-    
+
 
     const errorMsg = validateInput();
     if (errorMsg.username || errorMsg.password){

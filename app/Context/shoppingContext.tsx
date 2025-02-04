@@ -24,9 +24,19 @@ type cartItemType ={
 export const UserContext = createContext<UserContextType | undefined> (undefined);
 
 export const UserProvider: React.FC<{children: ReactNode}> =({children})=>{
-    const [username,setUsername] = useState<string>(
-        JSON.parse(localStorage.getItem('username') as string) || ''
-    )
+    // const [username,setUsername] = useState<string>(
+    //     JSON.parse(localStorage.getItem('username') as string) || ''
+    // )
+
+    const [username, setUsername] = useState<string>('')
+
+    useEffect(() => {
+        // Only run on client-side
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+            setUsername(JSON.parse(storedUsername));
+        }
+    }, []);
 
     const [cart,setCart] = useState<cartItemType[]> ([])
 
@@ -66,7 +76,7 @@ localStorage.setItem('username', JSON.stringify(username))
     )
 }
 
-export const useUser = () =>{
+export const UseUser = () =>{
     const context = useContext(UserContext)
 
     if (!context) {
