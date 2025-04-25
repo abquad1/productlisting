@@ -84,12 +84,7 @@ const result = await response.json();
     console.log('form submitted:', result)    
 }
 
-// const errorMsg = validateInput();
-//  if (errorMsg.username || errorMsg.password) { 
-//     setError(errorMsg) 
-//     return 
-// } 
-// try { 
+// 
 //     const response = await fetch('pages/api/submit', { 
 //         method: 'POST', 
 //         headers: { 'Content-Type': 'application/json' },
